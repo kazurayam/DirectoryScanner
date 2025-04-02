@@ -48,8 +48,6 @@ import com.kazurayam.ant.types.selectors.TokenizedPath;
 import com.kazurayam.ant.types.selectors.TokenizedPattern;
 import com.kazurayam.ant.util.FileUtils;
 import com.kazurayam.ant.util.VectorSet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Class for scanning a directory for files/directories which match certain
@@ -155,8 +153,6 @@ import org.slf4j.LoggerFactory;
 public class DirectoryScanner
         //implements FileScanner, SelectorScanner, ResourceFactory {
         implements FileScanner {
-
-    private static Logger logger = LoggerFactory.getLogger(DirectoryScanner.class);
 
     /** Is OpenVMS the operating system we're running on? */
     private static final boolean ON_VMS = Os.isFamily("openvms");
@@ -487,10 +483,12 @@ public class DirectoryScanner
      * @return whether or not a given path matches the start of a given
      * pattern up to the first "**".
      */
+    /*
     protected static boolean matchPatternStart(final String pattern, final String str,
                                                final boolean isCaseSensitive) {
         return SelectorUtils.matchPatternStart(pattern, str, isCaseSensitive);
     }
+     */
 
     /**
      * Test whether or not a given path matches a given pattern.
@@ -503,9 +501,11 @@ public class DirectoryScanner
      * @return <code>true</code> if the pattern matches against the string,
      *         or <code>false</code> otherwise.
      */
+    /*
     protected static boolean matchPath(final String pattern, final String str) {
         return SelectorUtils.matchPath(pattern, str);
     }
+     */
 
     /**
      * Test whether or not a given path matches a given pattern.
@@ -520,10 +520,12 @@ public class DirectoryScanner
      * @return <code>true</code> if the pattern matches against the string,
      *         or <code>false</code> otherwise.
      */
+    /*
     protected static boolean matchPath(final String pattern, final String str,
                                        final boolean isCaseSensitive) {
         return SelectorUtils.matchPath(pattern, str, isCaseSensitive);
     }
+     */
 
     /**
      * Test whether or not a string matches against a pattern.
@@ -539,9 +541,11 @@ public class DirectoryScanner
      * @return <code>true</code> if the string matches against the pattern,
      *         or <code>false</code> otherwise.
      */
+    /*
     public static boolean match(final String pattern, final String str) {
         return SelectorUtils.match(pattern, str);
     }
+     */
 
     /**
      * Test whether or not a string matches against a pattern.
@@ -560,10 +564,12 @@ public class DirectoryScanner
      * @return <code>true</code> if the string matches against the pattern,
      *         or <code>false</code> otherwise.
      */
+    /*
     protected static boolean match(final String pattern, final String str,
                                    final boolean isCaseSensitive) {
         return SelectorUtils.match(pattern, str, isCaseSensitive);
     }
+     */
 
 
     /**
@@ -591,11 +597,13 @@ public class DirectoryScanner
      *
      * @since Ant 1.6
      */
+    /*
     public static boolean addDefaultExclude(final String s) {
         synchronized (defaultExcludes) {
             return defaultExcludes.add(s);
         }
     }
+     */
 
     /**
      * Remove a string if it is a default exclude.
@@ -608,11 +616,13 @@ public class DirectoryScanner
      *
      * @since Ant 1.6
      */
+    /*
     public static boolean removeDefaultExclude(final String s) {
         synchronized (defaultExcludes) {
             return defaultExcludes.remove(s);
         }
     }
+     */
 
     /**
      * Go back to the hardwired default exclude patterns.
@@ -692,9 +702,11 @@ public class DirectoryScanner
      *                        is an error
      * @since Ant 1.7.1
      */
+    /*
     public void setErrorOnMissingDir(final boolean errorOnMissingDir) {
         this.errorOnMissingDir = errorOnMissingDir;
     }
+     */
 
     /**
      * Get whether or not a DirectoryScanner follows symbolic links.
@@ -703,18 +715,22 @@ public class DirectoryScanner
      *
      * @since Ant 1.6
      */
+    /*
     public synchronized boolean isFollowSymlinks() {
         return followSymlinks;
     }
+     */
 
     /**
      * Set whether or not symbolic links should be followed.
      *
      * @param followSymlinks whether or not symbolic links should be followed.
      */
+    /*
     public synchronized void setFollowSymlinks(final boolean followSymlinks) {
         this.followSymlinks = followSymlinks;
     }
+     */
 
     /**
      * The maximum number of times a symbolic link may be followed
@@ -723,9 +739,11 @@ public class DirectoryScanner
      * @param max int
      * @since Ant 1.8.0
      */
+    /*
     public void setMaxLevelsOfSymlinks(final int max) {
         maxLevelsOfSymlinks = max;
     }
+     */
 
     /**
      * Set the list of include patterns to use. All '/' and '\' characters
@@ -785,6 +803,7 @@ public class DirectoryScanner
      *
      * @since Ant 1.6.3
      */
+    /*
     public synchronized void addExcludes(final String[] excludes) {
         if (excludes != null && excludes.length > 0) {
             if (this.excludes == null || this.excludes.length == 0) {
@@ -796,6 +815,7 @@ public class DirectoryScanner
             }
         }
     }
+     */
 
     /**
      * All '/' and '\' characters are replaced by
@@ -834,9 +854,11 @@ public class DirectoryScanner
      * @return <code>true</code> if all files and directories which have
      *         been found so far have been included.
      */
+    /*
     public synchronized boolean isEverythingIncluded() {
         return everythingIncluded;
     }
+     */
 
     /**
      * Scan for files which match at least one include pattern and don't match
@@ -850,7 +872,6 @@ public class DirectoryScanner
      */
     @Override
     public void scan() throws IllegalStateException {
-        logger.debug("scan() started");
         synchronized (scanLock) {
             if (scanning) {
                 while (scanning) {
@@ -911,8 +932,8 @@ public class DirectoryScanner
                 if (isIncluded(TokenizedPath.EMPTY_PATH)) {
                     if (isExcluded(TokenizedPath.EMPTY_PATH)) {
                         dirsExcluded.addElement("");
-                    //} else if (isSelected("", basedir)) {
-                    //    dirsIncluded.addElement("");
+                    } else if (isSelected("", basedir)) {
+                        dirsIncluded.addElement("");
                     } else {
                         dirsDeselected.addElement("");
                     }
@@ -931,7 +952,6 @@ public class DirectoryScanner
                 scanLock.notifyAll();
             }
         }
-        logger.debug("scan() finished");
     }
 
     /**
@@ -1360,9 +1380,9 @@ public class DirectoryScanner
         boolean included = false;
         if (isExcluded(path)) {
             exc.add(name);
-        //} else if (isSelected(name, file)) {
-        //    included = true;
-        //    inc.add(name);
+        } else if (isSelected(name, file)) {
+            included = true;
+            inc.add(name);
         } else {
             des.add(name);
         }
@@ -1377,9 +1397,11 @@ public class DirectoryScanner
      * @return <code>true</code> when the name matches against at least one
      *         include pattern, or <code>false</code> otherwise.
      */
+    /*
     protected boolean isIncluded(final String name) {
         return isIncluded(new TokenizedPath(name));
     }
+     */
 
     /**
      * Test whether or not a name matches against at least one include
@@ -1408,9 +1430,11 @@ public class DirectoryScanner
      * @return <code>true</code> when the name matches against the start of at
      *         least one include pattern, or <code>false</code> otherwise.
      */
+    /*
     protected boolean couldHoldIncluded(final String name) {
         return couldHoldIncluded(new TokenizedPath(name));
     }
+     */
 
     /**
      * Test whether or not a name matches the start of at least one include
@@ -1496,9 +1520,11 @@ public class DirectoryScanner
      * @return <code>true</code> when the name matches against at least one
      *         exclude pattern, or <code>false</code> otherwise.
      */
+    /*
     protected boolean isExcluded(final String name) {
         return isExcluded(new TokenizedPath(name));
     }
+     */
 
     /**
      * Test whether or not a name matches against at least one exclude
@@ -1527,12 +1553,11 @@ public class DirectoryScanner
      * @return <code>false</code> when the selectors says that the file
      *         should not be selected, <code>true</code> otherwise.
      */
-    /*
     protected boolean isSelected(final String name, final File file) {
-        return selectors == null
-                || Stream.of(selectors).allMatch(sel -> sel.isSelected(basedir, name, file));
+        //return selectors == null
+        //        || Stream.of(selectors).allMatch(sel -> sel.isSelected(basedir, name, file));
+        return true;
     }
-     */
 
     /**
      * Return the names of the files which matched at least one of the

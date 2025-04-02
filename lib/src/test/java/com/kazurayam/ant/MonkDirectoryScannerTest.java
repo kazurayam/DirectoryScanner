@@ -22,6 +22,6 @@ public class MonkDirectoryScannerTest {
         ds.setIncludes(new String[]{"**/*.class"});
         //ds.setExcludes(new String[]{"**/test/**"});
         ds.scan();
-        assertEquals(ds.getIncludedFilesCount(), 10);
+        assertEquals(ds.getIncludedFilesCount(), 17);
     }
 }
