@@ -1,22 +1,21 @@
 package com.kazurayam.ant;
 
-
+import com.kazurayam.unittest.TestOutputOrganizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
-import com.kazurayam.unittest.TestOutputOrganizer;
+import static org.testng.Assert.assertEquals;
 
 public class DirectoryScannerTest {
 
-    private static final Logger log = LoggerFactory.getLogger(DirectoryScannerTest.class);
+    private static final Logger log = LoggerFactory.getLogger(MonkDirectoryScannerTest.class);
     private static final TestOutputOrganizer too =
-            new TestOutputOrganizer.Builder(DirectoryScannerTest.class)
+            new TestOutputOrganizer.Builder(MonkDirectoryScannerTest.class)
                     .outputDirectoryRelativeToProject("build/tmp/testOutput")
-                    .subOutputDirectory(DirectoryScannerTest.class)
+                    .subOutputDirectory(MonkDirectoryScannerTest.class)
                     .build();
 
     @BeforeTest
@@ -26,7 +25,7 @@ public class DirectoryScannerTest {
     public void beforeMethod() {}
 
     @Test
-    public void test_smoke() {
+    public void test_monk() {
         DirectoryScanner ds = new DirectoryScanner();
         ds.setBasedir("src/main/java");
         ds.setIncludes(new String[]{"**/*.java"});

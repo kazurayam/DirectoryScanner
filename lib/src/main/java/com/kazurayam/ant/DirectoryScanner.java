@@ -48,6 +48,8 @@ import com.kazurayam.ant.types.selectors.TokenizedPath;
 import com.kazurayam.ant.types.selectors.TokenizedPattern;
 import com.kazurayam.ant.util.FileUtils;
 import com.kazurayam.ant.util.VectorSet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class for scanning a directory for files/directories which match certain
@@ -130,27 +132,31 @@ import com.kazurayam.ant.util.VectorSet;
  * Example of usage:
  * </p>
  * <pre>
+ *   import com.kazurayam.ant.DirectoryScanner;
+ *
+ *   DirectoryScanner ds = new DirectoryScanner();
+ *   ds.setBaseDir("build/classes")
  *   String[] includes = {"**\\*.class"};
- *   String[] excludes = {"modules\\*\\**"};
+ *   String[] excludes = {"**\\test\\**\\*"};
  *   ds.setIncludes(includes);
  *   ds.setExcludes(excludes);
- *   ds.setBasedir(new File("test"));
- *   ds.setCaseSensitive(true);
  *   ds.scan();
  *
- *   System.out.println("FILES:");
+ *   System.out.println("main classes:");
  *   String[] files = ds.getIncludedFiles();
  *   for (int i = 0; i &lt; files.length; i++) {
  *     System.out.println(files[i]);
  *   }
  * </pre>
- * This will scan a directory called test for .class files, but excludes all
- * files in all proper subdirectories of a directory called "modules".
+ * This will scan a directory "./build/classes" for .class files, but excludes all
+ * files in subdirectories of a directory called "test".
  *
  */
 public class DirectoryScanner
         //implements FileScanner, SelectorScanner, ResourceFactory {
         implements FileScanner {
+
+    private static Logger logger = LoggerFactory.getLogger(DirectoryScanner.class);
 
     /** Is OpenVMS the operating system we're running on? */
     private static final boolean ON_VMS = Os.isFamily("openvms");
@@ -844,6 +850,7 @@ public class DirectoryScanner
      */
     @Override
     public void scan() throws IllegalStateException {
+        logger.debug("scan() started");
         synchronized (scanLock) {
             if (scanning) {
                 while (scanning) {
@@ -924,6 +931,7 @@ public class DirectoryScanner
                 scanLock.notifyAll();
             }
         }
+        logger.debug("scan() finished");
     }
 
     /**
