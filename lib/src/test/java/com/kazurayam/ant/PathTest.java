@@ -1,4 +1,4 @@
-package com.kazurayam.file;
+package com.kazurayam.ant;
 
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;

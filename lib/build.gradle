@@ -8,16 +8,28 @@
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
+
 }
 
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+    mavenLocal()
+}
+
+ext {
+    slf4jVersion = "2.0.13"
 }
 
 dependencies {
     // Use TestNG framework, also requires calling test.useTestNG() below
     testImplementation libs.testng
+
+    // https://mvnrepository.com/artifact/com.kazurayam/unittest-helper
+    testImplementation("com.kazurayam:unittest-helper:0.5.1")
+
+    implementation("org.slf4j:slf4j-api:${slf4jVersion}")
+    testRuntimeOnly("org.slf4j:slf4j-simple:${slf4jVersion}")
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api libs.commons.math3
@@ -29,7 +41,7 @@ dependencies {
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(8)
+        languageVersion = JavaLanguageVersion.of(11)
     }
 }
 
