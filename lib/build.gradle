@@ -19,7 +19,6 @@ repositories {
 }
 
 group = 'com.kazurayam'
-archivesBaseName = 'MockDirectoryScanner'
 version = '0.1.0'
 
 project.ext.set("isReleaseVersion", ! version.endsWith("SNAPSHOT"))
@@ -49,6 +48,10 @@ java {
     }
 }
 
+jar {
+    archiveBaseName = project.rootProject.name
+}
+
 tasks.named('test') {
     // Use TestNG for unit tests.
     useTestNG()
@@ -57,12 +60,12 @@ tasks.named('test') {
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            groupId = project.group
+            artifactId = project.rootProject.name
+            from components.java
             pom {
-                groupId = project.group
-                name = project.rootProject.name
-                description = 'Ant DirectoryScanner made portable'
+                description = 'Ant DirectoryScanner simplified, made portable'
                 url = 'https://kazurayam.github.io/MonkDirectoryScanner/'
-                from components.java
                 licenses {
                     license {
                         name = 'The Apache License, Version 2.0'
