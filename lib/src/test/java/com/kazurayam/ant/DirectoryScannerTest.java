@@ -27,10 +27,11 @@ public class DirectoryScannerTest {
     @Test
     public void test_monk() {
         DirectoryScanner ds = new DirectoryScanner();
-        ds.setBasedir("src/main/java");
-        ds.setIncludes(new String[]{"**/*.java"});
+        ds.setBasedir("build/classes");
+        ds.setIncludes(new String[]{"**/*.class"});
+        //ds.setExcludes(new String[]{"**/test/**"});
         ds.scan();
-        assertEquals(ds.getIncludedFilesCount(), 10);
+        assertEquals(ds.getIncludedFilesCount(), 15);
     }
 
 
