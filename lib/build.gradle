@@ -23,11 +23,6 @@ version = '0.1.0'
 
 project.ext.set("isReleaseVersion", ! version.endsWith("SNAPSHOT"))
 
-ext {
-    slf4jVersion = "2.0.13"
-}
-
-
 dependencies {
     // Use TestNG framework, also requires calling test.useTestNG() below
     testImplementation libs.testng
@@ -59,9 +54,10 @@ tasks.named('test') {
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
+        // type "gradle publishMylibPublicationToGrp
+        mylib(MavenPublication) {
             groupId = project.group
-            artifactId = project.rootProject.name
+            artifactId = 'monk-directory-scanner'
             from components.java
             pom {
                 description = 'Ant DirectoryScanner simplified, made portable'
@@ -89,20 +85,19 @@ publishing {
     }
     repositories {
         maven {
-            def releaseRepo = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-            def snapshotRepo = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-            url = project.ext.get("isReleaseVersion") ? releaseRepo: snapshotRepo
+            name = "gpr"
+            url = uri("https://maven.pkg.github.com/kazurayam/${rootProject.name}")
             credentials {
-                username = project.hasProperty('ossrhUsername') ? ossrhUsername : "Unknown user"
-                password = project.hasProperty('ossrhPassword') ? ossrhPassword : "Unknown password"
+                username = project.findProperty('gpr.user')
+                password = project.findProperty('gpr.key')
             }
         }
     }
 }
-
+// type "$ gradle publishMylibPublicationToGprRepository"
 
 signing {
-    sign publishing.publications.mavenJava
+    sign publishing.publications.mylib
 }
 // I do not want to sign the SNAPSHOT
 tasks.withType(Sign) {
