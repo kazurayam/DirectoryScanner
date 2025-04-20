@@ -15,8 +15,6 @@ So I named this code set as "Monk Directory Scanner". This library will be provi
 ```
 package com.kazurayam.ant;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
