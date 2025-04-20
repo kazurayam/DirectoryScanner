@@ -33,6 +33,4 @@ public class DirectoryScannerTest {
         ds.scan();
         assertEquals(ds.getIncludedFilesCount(), 15);
     }
-
-
 }
