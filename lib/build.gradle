@@ -34,6 +34,8 @@ dependencies {
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
+    withJavadocJar()
+    withSourcesJar()
     toolchain {
         languageVersion = JavaLanguageVersion.of(11)
     }
@@ -68,6 +70,8 @@ publishing {
             artifactId = ARTIFACT_ID
             from components.java
             pom {
+                groupId = project.group
+                name = ARTIFACT_ID
                 description = 'Ant DirectoryScanner simplified, made portable'
                 url = 'https://kazurayam.github.io/MonkDirectoryScanner/'
                 licenses {
@@ -98,6 +102,15 @@ publishing {
             credentials {
                 username = project.findProperty('gpr.user')
                 password = project.findProperty('gpr.key')
+            }
+        }
+        maven {
+            def releaseRepo = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            def snapshotRepo = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+            url = isReleaseVersion ? releaseRepo: snapshotRepo
+            credentials {
+                username = project.hasProperty('ossrhUsername') ? ossrhUsername : "Unknown user"
+                password = project.hasProperty('ossrhPassword') ? ossrhPassword : "Unknown password"
             }
         }
     }

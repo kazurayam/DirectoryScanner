@@ -5,7 +5,7 @@
 - link to the link:{PagesURL}/api[Javadoc]
 - link to the link:{ReposURL}[repository]
 - link to the link:{ReposURL}/releases[Releases] page
-- link to the link:https://mvnrepository.com/artifact/com.kazurayam/monk-directory-scanner[Maven Central]
+- link to the link:https://central.sonatype.com/artifact/com.kazurayam/monk-directory-scanner[Maven Central Repository]
 
 == Monk Directory Scanner
 
