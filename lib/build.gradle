@@ -19,9 +19,12 @@ repositories {
 }
 
 group = 'com.kazurayam'
-version = '0.1.0'
+version = '0.1.1'
 
-project.ext.set("isReleaseVersion", ! version.endsWith("SNAPSHOT"))
+ext {
+    ARTIFACT_ID = 'monk-directory-scanner'
+    isReleaseVersion = ! version.endsWith("SNAPSHOT")
+}
 
 dependencies {
     // Use TestNG framework, also requires calling test.useTestNG() below
@@ -44,7 +47,7 @@ java {
 }
 
 jar {
-    archiveBaseName = project.rootProject.name
+    archiveBaseName = ARTIFACT_ID
 }
 
 tasks.named('test') {
@@ -57,7 +60,7 @@ publishing {
         // type "gradle publishMylibPublicationToGrp
         mylib(MavenPublication) {
             groupId = project.group
-            artifactId = 'monk-directory-scanner'
+            artifactId = ARTIFACT_ID
             from components.java
             pom {
                 description = 'Ant DirectoryScanner simplified, made portable'
