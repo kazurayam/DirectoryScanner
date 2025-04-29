@@ -47,3 +47,7 @@ So I named this code set as "Monk Directory Scanner". This library will be provi
 # Javadoc 
 
 - [Javadoc](https://kazurayam.github.io/MonkDirectoryScanner/api/)
+
+# Docs
+
+- [docs](https://kazurayam.github.io/MonkDirectoryScanner/)
