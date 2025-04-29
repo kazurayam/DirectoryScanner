@@ -43,6 +43,18 @@ jar {
     archiveBaseName = ARTIFACT_ID
 }
 
+javadoc {
+    title = ARTIFACT_ID + " " + project.version + " API"
+}
+
+tasks.register("publishJavadoc", Copy) {
+    group = 'Custom'
+    description = "copy the Java files into the rootProject/docs directory to make it publicly accessible"
+    from 'build/docs/javadoc'
+    into "${rootProject.projectDir}/docs/api"
+}
+javadoc.finalizedBy publishJavadoc
+
 tasks.named('test') {
     // Use TestNG for unit tests.
     useTestNG()
