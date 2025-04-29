@@ -33,3 +33,10 @@ public class DirectoryScannerTest {
 }
 ```
 
+# Javadoc
+
+- [Javadoc](https://kazurayam.github.io/MonkDirectoryScanner/api/)
+
+# Docs
+
+- [docs](https://kazurayam.github.io/MonkDirectoryScanner/)

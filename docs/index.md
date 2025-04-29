@@ -7,7 +7,7 @@
 
 -   link to the [Releases](https://www.github.com/kazurayam/MonkDirectoryScanner/releases) page
 
--   link to the [Maven Central](https://mvnrepository.com/artifact/com.kazurayam/monk-directory-scanner)
+-   link to the [Maven Central Repository](https://central.sonatype.com/artifact/com.kazurayam/monk-directory-scanner)
 
 # Monk Directory Scanner
 
@@ -43,11 +43,3 @@ So I named this code set as "Monk Directory Scanner". This library will be provi
             assertEquals(ds.getIncludedFilesCount(), 15);
         }
     }
-
-# Javadoc 
-
-- [Javadoc](https://kazurayam.github.io/MonkDirectoryScanner/api/)
-
-# Docs
-
-- [docs](https://kazurayam.github.io/MonkDirectoryScanner/)
